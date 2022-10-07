@@ -2,11 +2,14 @@
     <q-layout view="lHh Lpr lFf">
         <q-header elevated>
             <q-toolbar>
-                <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+                <q-btn flat dense round icon="las la-bars" aria-label="Menu" @click="toggleLeftDrawer" />
 
                 <q-toolbar-title>
-                    Aitech Reservaciones
+                    Aitech Glamping
                 </q-toolbar-title>
+
+                <div>Hola, <span class="q-mx-sm"> Aitech Admin </span></div>
+                <div> Cerrar sesión </div>
 
             </q-toolbar>
         </q-header>
@@ -28,59 +31,40 @@
 </template>
   
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from '../components/EssencialLink.vue'
+import { defineComponent, ref, defineAsyncComponent } from 'vue'
 
 const linksList = [
     {
-        title: 'Docs',
-        caption: 'quasar.dev',
-        icon: 'school',
-        link: 'https://quasar.dev'
+        title: 'Dashboard',
+        caption: 'Estadisticas e infomración',
+        icon: 'las la-chart-line',
+        link: 'dashboard'
     },
     {
-        title: 'Github',
-        caption: 'github.com/quasarframework',
-        icon: 'code',
-        link: 'https://github.com/quasarframework'
+        title: 'Desarrollo',
+        caption: 'Proyectos pertenecientes al desarrollo',
+        icon: 'las la-layer-group',
+        link: 'development'
     },
     {
-        title: 'Discord Chat Channel',
-        caption: 'chat.quasar.dev',
-        icon: 'chat',
-        link: 'https://chat.quasar.dev'
+        title: 'Proyectos',
+        caption: 'Vista de proyectos activos',
+        icon: 'las la-building',
+        link: 'property-dev'
     },
     {
-        title: 'Forum',
-        caption: 'forum.quasar.dev',
-        icon: 'record_voice_over',
-        link: 'https://forum.quasar.dev'
+        title: 'Socios',
+        caption: 'Socios activos en aitech glamping',
+        icon: 'las la-user-friends',
+        link: 'partners'
     },
-    {
-        title: 'Twitter',
-        caption: '@quasarframework',
-        icon: 'rss_feed',
-        link: 'https://twitter.quasar.dev'
-    },
-    {
-        title: 'Facebook',
-        caption: '@QuasarFramework',
-        icon: 'public',
-        link: 'https://facebook.quasar.dev'
-    },
-    {
-        title: 'Quasar Awesome',
-        caption: 'Community Quasar projects',
-        icon: 'favorite',
-        link: 'https://awesome.quasar.dev'
-    }
 ]
 
 export default defineComponent({
     name: 'MainLayout',
 
     components: {
-        EssentialLink
+        EssentialLink: defineAsyncComponent(() => import('../components/EssencialLink.vue'))
     },
 
     setup() {

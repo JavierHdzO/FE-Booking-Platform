@@ -1,7 +1,7 @@
 <template>
     <q-layout view="lHh Lpr lFf">
         <q-header elevated>
-            <q-toolbar>
+            <q-toolbar class="bg-secondary">
                 <q-btn flat dense round icon="las la-bars" aria-label="Menu" @click="toggleLeftDrawer" />
 
                 <q-toolbar-title>

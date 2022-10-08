@@ -1,9 +1,5 @@
 <template>
-  <h1>Dashboard Page</h1>
-
-  <q-page>
-    
-  </q-page> 
+  <h1>SignUp</h1>
 </template>
 
 <script>

@@ -1,3 +1,4 @@
-export default  () => ({
-  
+export default () => ({
+    user: null,
+    tokenID: null
 })

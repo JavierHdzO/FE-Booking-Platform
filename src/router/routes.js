@@ -1,5 +1,5 @@
 import panelRouter from '../modules/panel/router/index'
-
+import authRouter from '../modules/auth/router/index'
 
 const routes = [
   {
@@ -9,11 +9,12 @@ const routes = [
   },
   {
     path: '/auth',
-    component: () => import('../modules/auth/layouts/AuthLayout'),
+    ...authRouter
 
   },
   {
     path: '/',
+    name: 'booking',
     component: () => import('../modules/booking/layouts/BookingLayout'),
 
   },

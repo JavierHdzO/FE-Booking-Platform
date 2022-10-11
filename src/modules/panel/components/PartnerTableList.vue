@@ -2,15 +2,20 @@
     
 
     <q-page>
-        <p v-for="val in 100" :key="val"
-        class="text-dark"
-    >Partern User</p>
+        <PartnerTable 
+            v-for="val in 10"
+            :key="val"
+        /> 
     </q-page>
 </template>
 
 <script>
-export default {
+import { defineAsyncComponent } from 'vue'
 
+export default {
+    components: {
+        PartnerTable: defineAsyncComponent( () => import ('../components/PartnerTable.vue'))
+    }
 }
 </script>
 

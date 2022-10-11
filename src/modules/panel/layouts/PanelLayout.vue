@@ -19,7 +19,7 @@
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
-          <p class="q-mx-sm text-h6 max-content">Hola, <span> usario </span></p>
+          <p class="q-mx-sm text-h6 max-content">Hola, <span> usuario </span></p>
           <q-icon
             name="las la-sign-out-alt"
             size="2rem"
@@ -58,7 +58,7 @@
       </q-layout>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="full-display">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -134,5 +134,9 @@ export default defineComponent({
   .hiden {
     display: none;
   }
+}
+
+.full-display {
+  height: 100vh;;
 }
 </style>

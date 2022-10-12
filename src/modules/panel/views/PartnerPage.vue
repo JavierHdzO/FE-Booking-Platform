@@ -11,7 +11,7 @@
             <span class="text-dark text-h3">Socios</span>
           </q-toolbar-title>
 
-          <q-input rounded outlined bg-color="grey-2" v-model="text">
+          <q-input rounded outlined bg-color="grey-2">
             <template v-slot:append>
               <q-icon name="las la-search" color="accent"></q-icon>
             </template>
@@ -44,7 +44,7 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     PartnerTableList: defineAsyncComponent(() =>
-      import("../components/PartnerTableList.vue")
+      import("../components/PartnerTable.vue")
     ),
   },
 };

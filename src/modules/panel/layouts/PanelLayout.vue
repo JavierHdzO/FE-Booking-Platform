@@ -15,7 +15,7 @@
           <q-avatar size="70px">
             <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
           </q-avatar>
-          <h1 class="text-h5 text-italic">Aitech Glamping</h1>
+          <h1 class="text-h5 text-weight-bolder">Aitech Glamping</h1>
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
@@ -95,7 +95,7 @@ const linksList = [
 ];
 
 export default defineComponent({
-  name: "MainLayout",
+  name: "PartnerLayout",
 
   components: {
     EssentialLink: defineAsyncComponent(() =>

@@ -14,19 +14,20 @@
         <q-toolbar-title class="row justify-start items-center">
           <q-avatar size="70px">
             <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
+            <!-- <img src="AitechGlampingBlack.png" alt="Aitech Glamping Logo" /> -->
           </q-avatar>
           <h1 class="text-h5 text-weight-bolder">Aitech Glamping</h1>
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
           <p class="q-mx-sm text-h6 max-content">Hola, <span> usuario </span></p>
-          <q-icon
-            name="las la-sign-out-alt"
-            size="2rem"
-            right
-            left
+          <q-btn
+            icon="las la-sign-out-alt"
+            size="1.5rem"            right
+            fab
+            label="sign out"
             color="white-icon"
-          ></q-icon>
+          ></q-btn>
         </div>
       </q-toolbar>
     </q-header>

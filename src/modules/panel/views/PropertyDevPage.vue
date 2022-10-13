@@ -31,7 +31,7 @@
 
       <q-page-container>
         <q-page padding style="padding-top: 50px">
-          <partner-table-list></partner-table-list>
+          <PropertyDevTable/>
           <q-page-sticky position="top"> </q-page-sticky>
 
           <q-page-scroller
@@ -53,7 +53,7 @@ import { defineAsyncComponent } from "vue";
 
 export default {
   components: {
-    PartnerTableList: defineAsyncComponent(() => import("../components/PropertyDevTable.vue")),
+    PropertyDevTable: defineAsyncComponent(() => import("../components/PropertyDevTable.vue")),
   },
 }
 </script>

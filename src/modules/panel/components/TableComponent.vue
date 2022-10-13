@@ -5,7 +5,8 @@
       icon-prev-page="las la-angle-left"
       icon-first-page="las la-angle-double-left"
       icon-last-page="las la-angle-double-right"
-      title=""
+      :title="title"
+      flat
       :rows="rows"
       :columns="columns"
       row-key="id"
@@ -26,6 +27,16 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-booking="props">
+        <q-td :props="props">
+          <q-btn 
+            dense 
+            icon="las la-book" 
+            color="accent"
+            @click="onUpdate(props)"
+            ></q-btn>
+        </q-td>
+      </template>
 
       <template v-slot:body-cell-edit="props">
         <q-td :props="props">
@@ -50,17 +61,14 @@
       </template>
 
         
-      <template v-slot:top>
-        <img
-          style="height: 50px; width: 50px"
-          src="AitechGlampingLogo.png"
-        >
-
-        <q-space />
+      <template v-slot:top-right>
+        
 
         <q-select
+        
+          name="Columnas"
+          title="Columnas"
           dropdown-icon="las la-angle-down"
-            
           v-model="visibleColumn"
           multiple
           outlined
@@ -83,9 +91,9 @@
 
 <script>
 import { ref } from 'vue'
-
-
-
+import { useRoute } from 'vue-router'
+import { useQuasar } from 'quasar'
+import ConfirmDelete from '../components/ConfirmDelete.vue'
 
 
 export default {
@@ -102,9 +110,17 @@ export default {
     visibleColumns: {
       type: Array,
       required: true
+    },
+    title:{
+      type: String,
+      default: ''
     }
   },
   setup (props) {
+    
+    const $q = useQuasar()
+    const $route = useRoute()
+    
 
     return {
       visibleColumn: ref( props.visibleColumns ),
@@ -114,6 +130,20 @@ export default {
       onDelete ( props ){
         console.log( props.key )
 
+        $q.dialog({
+          component: ConfirmDelete,
+
+          
+        })
+        .onOk(()=> {
+          console.log("Elemento eliminado")
+        })
+        .onCancel(()=>{
+          console.log("Elemento no eliminado");
+        })
+        .onDismiss(()=>{
+          console.log("Llamado cuando Ok o Cancel es llamado")
+        })
       }, 
       
       onUpdate ( props ){

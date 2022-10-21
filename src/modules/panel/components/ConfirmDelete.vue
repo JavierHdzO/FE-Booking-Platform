@@ -5,13 +5,20 @@
                 <div class="text-h6"> Confirmar eliminacion de elemento </div>
             </q-card-section>
 
-            <q-card-section>
-                <div class="text-body1">Si confirma la eliminación, toda la información asociada al elemento será eliminada tambien </div>
+            <!-- <q-card-section >
+                <q-icon ></q-icon>
+            </q-card-section> -->
+            <q-card-section horizontal class="items-center">
+                <q-icon name="las la-exclamation-triangle" size="3rem"  ></q-icon>
+
+                <q-card-section class="text-body1">
+                    Si confirma la eliminación, toda la información asociada al elemento será eliminada tambien
+                </q-card-section>
             </q-card-section>
 
             <q-card-actions align="right">
-                <q-btn color="negative" icon="las la-times"  text-color="white" label="Cancel" @click="onCancelDialog" />
-                <q-btn color="positive" icon="las la-check" text-color="white" label="OK" @click="onOKDialog" />
+                <q-btn color="negative" outline no-caps icon="las la-times"   label="Cancelar" @click="onCancelDialog" />
+                <q-btn color="positive" outline no-caps icon="las la-check" label="OK" @click="onOKDialog" />
             </q-card-actions>
         </q-card>
     </q-dialog>
@@ -28,7 +35,7 @@ export default {
         ...useDialogPluginComponent.emits
     ],
     setup(  ){
-
+        //CHANGE THIS SECTION TO A COMPOSABLE
         const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = useDialogPluginComponent()
 
         return {

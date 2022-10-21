@@ -12,6 +12,7 @@
 import { defineAsyncComponent } from "vue";
 
 export default {
+  name:"PartnerTable",
   components: {
     TableComponent: defineAsyncComponent(() => import("./TableComponent.vue")),
   },

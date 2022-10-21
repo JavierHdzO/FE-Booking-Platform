@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <q-page-container>
+    <q-page-container style="height: 100vh">
       <router-view ></router-view>
     </q-page-container>
   </q-layout>
@@ -12,9 +12,8 @@
 
 </script>
 
-
 <style scoped>
-    @tailwind base;
+    /* @tailwind base;
     @tailwind components;
-    @tailwind utilities;
+    @tailwind utilities; */
 </style>

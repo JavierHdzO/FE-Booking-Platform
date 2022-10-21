@@ -18,7 +18,7 @@ import { defineAsyncComponent } from 'vue'
 
 
 export default {
-
+    name: "DevelopmentTable-List",
     components:{
         TableComponent: defineAsyncComponent( () => import ('../components/TableComponent.vue') )
     },

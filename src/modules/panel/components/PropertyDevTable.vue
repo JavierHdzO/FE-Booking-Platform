@@ -56,7 +56,9 @@ export default {
         name: "video",
         label: "Video (URL)",
         field: "video",
-        align: "center"
+        align: "center",
+        style: 'width: 120px;',
+        headerStyle: 'width: 120px;'
       },
       
       {

@@ -5,11 +5,11 @@ export default {
         {
             path: '',
             name: 'signin',
-            component: () => import('../views/LogiIn.vue')
+            component: () => import('../views/LogIn.vue')
         },
         {
-            path: 'sign-in',
-            name: 'sign-in',
+            path: 'sign-up',
+            name: 'sign-up',
             component: () => import('../views/SignUp.vue')
         },
     ]

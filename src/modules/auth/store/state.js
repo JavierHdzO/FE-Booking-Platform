@@ -1,4 +1,5 @@
 export default () => ({
     user: null,
-    tokenID: null
+    tokenID: null,
+    status: null
 })

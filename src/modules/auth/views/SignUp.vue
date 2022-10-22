@@ -39,7 +39,7 @@
                 <div class="input-wrapper">
                     <input 
                             v-model="dataForm.access_code"
-                            id="code" type="number" class="code" name="code" required>
+                            id="code" type="text" class="code" name="code" required>
                     <label class="text-subtitle1" for="code">Código de registro</label>
                 </div>
                 <button class="submit-Button" type="submit">Registrar</button>
@@ -50,6 +50,7 @@
 
 <script>
     import { ref, computed } from "vue"
+    import { useRouter } from 'vue-router'
     import { useQuasar } from 'quasar'
     import useAuth from '../composables/useAuth'
     import setBackground from '../helpers/getBackground'
@@ -67,14 +68,22 @@
             access_code: ''
         })
 
+        const router = useRouter()
         const $q = useQuasar()
-        const { createUser } = useAuth()
+        const { createUser, logIn } = useAuth()
 
       return{
         background: computed( setBackground ),
         dataForm,
         onSubmit: async() => {
+            $q.notify({
+                spinner: true,
+                message: 'Espere un momento...',
+                timeout: 2000
+            })
+
             const { ok, msg } = await createUser( dataForm.value )
+
 
             if( !ok ){
                 $q.notify({
@@ -84,6 +93,30 @@
                 })
                 return
             }
+
+            
+            const user = {
+                email: dataForm.value.email,
+                password: dataForm.value.password
+            }
+
+            const { ok:ok2, msg:msg2 } = await logIn(user)
+
+            if( !ok2 ){
+                $q.notify({
+                    type:'negative',
+                    icon:'las la-exclamation-triangle',
+                    message: msg2
+                })
+
+                return
+            }
+
+            router.push({ name:'dashboard' })
+
+            
+
+
 
         }
       }

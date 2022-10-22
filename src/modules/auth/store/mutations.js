@@ -20,4 +20,11 @@ export const logOut = ( /* state */) => {
 
 }
 
+export const createUser = (state) => {
+    state.user = null
+    state.tokenID = null
+    state.status = null
+
+}
+
 

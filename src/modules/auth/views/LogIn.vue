@@ -66,7 +66,7 @@ export default {
 
         const { ok, msg } = await logIn( user.value )
 
-        console.log(msg);
+        
         if ( !ok ){
 
           $q.notify({

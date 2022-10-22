@@ -15,6 +15,7 @@ const useAuth = () => {
     }
 
     const logIn = async (user) => {
+        console.log(user.password, user.email);
         const resp = await store.dispatch('auth/sigInUser', user);
 
         return resp

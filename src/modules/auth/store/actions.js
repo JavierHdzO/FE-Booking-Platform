@@ -5,7 +5,7 @@ export const someAction = async (/* { commit } */) => {
 
 }
 
-export const createUser = async ({ dispatch }, user) => {
+export const createUser = async ({ commit }, user) => {
 
     const { name, last_name, email, password, confirm_pass, access_code, } = user
 
@@ -14,7 +14,7 @@ export const createUser = async ({ dispatch }, user) => {
 
     try {
 
-        const { data } = await api.post('users/', {
+        let { data } = await api.post('users/', {
             name,
             last_name,
             email,
@@ -22,12 +22,16 @@ export const createUser = async ({ dispatch }, user) => {
             access_code
         })
 
-        console.log(data)
+        const { ok } = data
 
+        console.log(data);
+        commit('createUser')
 
+        return { ok }
 
     } catch (error) {
-        return { ok: false, msg: error.response.data.msg }
+        console.log(error.response.data);
+        return { ok: false, msg: error.response.data.msg || error.response.data.errors[0].msg }
     }
 
 }
@@ -35,6 +39,8 @@ export const createUser = async ({ dispatch }, user) => {
 export const sigInUser = async ({ commit }, user) => {
 
     const { email, password } = user
+
+    console.log(email, password);
 
     try {
 

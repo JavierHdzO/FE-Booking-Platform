@@ -33,6 +33,9 @@
               class="submitBtn"
               type="submit"
               >Entrar</button>
+          <p><router-link :to="{name:'sign-up'}">¿No estas registrado? Crea una cuenta</router-link></p>
+          <p><router-link to="">Recuperar contraseña</router-link></p>
+          
         </form>
       </div>
     </div>

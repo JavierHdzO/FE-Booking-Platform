@@ -20,13 +20,14 @@
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
-          <p class="q-mx-sm text-h6 max-content">Hola, <span> usuario </span></p>
+          <p class="q-mx-sm text-h6 max-content">Hola, <span> {{ user }} </span></p>
           <q-btn
             icon="las la-sign-out-alt"
             size="1.5rem"            right
             fab
             label="sign out"
             color="white-icon"
+            @click="onlogOut"
           ></q-btn>
         </div>
       </q-toolbar>
@@ -52,7 +53,7 @@
               <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
             </q-avatar>
             <div class="row max-content items-center">
-                <p class=" text-subtitle1 ">Hola, Usuario</p>
+                <p class=" text-subtitle1 ">Hola, {{ user }}</p>
             </div>
           </div>
         </q-footer>
@@ -66,7 +67,11 @@
 </template>
   
 <script>
-import { defineComponent, ref, defineAsyncComponent } from "vue";
+import { defineComponent, ref, computed, defineAsyncComponent } from "vue"
+import { useStore } from 'vuex'
+import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
+import useAuth from '../../auth/composables/useAuth'
 
 const linksList = [
   {
@@ -105,7 +110,13 @@ export default defineComponent({
   },
 
   setup() {
+    const store = useStore()
+    const router = useRouter()
+    const $q = useQuasar()
+    const { logOut, checkStatus } = useAuth()
     const leftDrawerOpen = ref(false);
+
+    checkStatus()
 
     return {
       essentialLinks: linksList,
@@ -113,10 +124,26 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
-    };
+
+      onlogOut: () =>{
+        const { ok, msg } = logOut()
+        
+        if( ok ){
+          $q.notify({
+            message: msg,
+            color: 'purple',
+            avatar: 'https://cdn.quasar.dev/img/boy-avatar.png'
+          })
+        }
+        router.push({name:'signin'})
+
+      },
+      user: computed(()=> store.getters['auth/username'])
+    }
   },
-});
+})
 </script>
+
 
 <style scoped>
 .max-content {

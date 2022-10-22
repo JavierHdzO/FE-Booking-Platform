@@ -1,9 +1,12 @@
 import panelRouter from '../modules/panel/router/index'
 import authRouter from '../modules/auth/router/index'
 
+import isAuthenticatedGuard from "../modules/auth/router/auth-guard"
+
 const routes = [
   {
     path: '/panel',
+    beforeEnter: [isAuthenticatedGuard],
     ...panelRouter
 
   },

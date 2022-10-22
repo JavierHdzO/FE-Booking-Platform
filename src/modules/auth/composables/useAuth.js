@@ -15,25 +15,28 @@ const useAuth = () => {
     }
 
     const logIn = async (user) => {
-        console.log(user.password, user.email);
+
         const resp = await store.dispatch('auth/sigInUser', user);
 
         return resp
     }
 
     const checkStatus = async () => {
-
+        store.commit('auth/reload')
     }
 
     const logOut = () => {
+        store.commit('auth/logOut')
 
+        return { ok: true, msg: 'Hasta luego' }
     }
 
     return {
         createUser,
         logIn,
         checkStatus,
-        logOut
+        logOut,
+        username: store.getters['auth/username']
     }
 
 

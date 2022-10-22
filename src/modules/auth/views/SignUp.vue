@@ -43,6 +43,7 @@
                     <label class="text-subtitle1" for="code">Código de registro</label>
                 </div>
                 <button class="submit-Button" type="submit">Registrar</button>
+                <p><router-link :to="{name:'signin'}">¿Ya tienes una cuenta? Inicia sesión</router-link></p>
             </form>
         </div>
     </div>

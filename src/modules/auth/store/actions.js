@@ -24,13 +24,12 @@ export const createUser = async ({ commit }, user) => {
 
         const { ok } = data
 
-        console.log(data);
         commit('createUser')
 
         return { ok }
 
     } catch (error) {
-        console.log(error.response.data);
+
         return { ok: false, msg: error.response.data.msg || error.response.data.errors[0].msg }
     }
 
@@ -40,7 +39,6 @@ export const sigInUser = async ({ commit }, user) => {
 
     const { email, password } = user
 
-    console.log(email, password);
 
     try {
 
@@ -62,6 +60,35 @@ export const sigInUser = async ({ commit }, user) => {
     }
 }
 
-export const checkAuthentication = async (/* { commit } */) => {
+export const checkAuthentication = async ({ commit }) => {
 
+    const token = localStorage.getItem('tokenID')
+
+
+    if (!token) {
+        commit('logOut')
+        return { ok: false, msg: 'Token missing or incorrect' }
+    }
+
+    try {
+
+        api.defaults.headers.common['x-token'] = token
+        const { data } = await api.post('token/')
+
+        const { ok, msg, user } = data
+
+        if (!ok) {
+            commit('logOut')
+            return { ok: false, msg }
+        }
+
+        
+
+        return { ok }
+
+    } catch (error) {
+        commit('logOut')
+        return { ok: false, msg: error.response.data.msg }
+
+    }
 }

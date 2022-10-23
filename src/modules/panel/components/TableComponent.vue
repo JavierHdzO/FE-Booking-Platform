@@ -156,7 +156,19 @@ export default {
 
             break
           case 'development':
-
+            $q.dialog({
+              component: defineAsyncComponent(() => import("./HomeModal.vue")
+              ),
+            })
+              .onOk(() => {
+                console.log("Elemento actualizado");
+              })
+              .onCancel(() => {
+                console.log("Elemento no actualizado");
+              })
+              .onDismiss(() => {
+                console.log("Llamado cuando Ok o Cancel es llamado");
+              })
           break
 
           case 'partners':

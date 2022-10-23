@@ -6,12 +6,12 @@
       class="shadow-2 rounded-borders full height"
     >
       <q-header elevated class="bg-white">
-        <q-toolbar class="q-my-md">
+        <q-toolbar class="q-my-md row">
           <q-toolbar-title class="q-mx-lg">
             <span class="text-dark text-h3">Desarrollo</span>
           </q-toolbar-title>
 
-          <q-input rounded outlined bg-color="grey-2">
+          <q-input rounded outlined bg-color="grey-2" >
             <template v-slot:append>
               <q-icon name="las la-search" color="accent"></q-icon>
             </template>

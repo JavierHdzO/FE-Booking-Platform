@@ -13,59 +13,53 @@
       :visible-columns="visibleColumn"
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
-      
     >
-
       <template v-slot:body-cell-view="props">
         <q-td :props="props">
-          <q-btn 
-            dense 
-            icon="las la-eye" 
+          <q-btn
+            dense
+            icon="las la-eye"
             color="primary"
             @click="onUpdate(props)"
-            ></q-btn>
+          ></q-btn>
         </q-td>
       </template>
 
       <template v-slot:body-cell-booking="props">
         <q-td :props="props">
-          <q-btn 
-            dense 
-            icon="las la-book" 
+          <q-btn
+            dense
+            icon="las la-book"
             color="accent"
             @click="onUpdate(props)"
-            ></q-btn>
+          ></q-btn>
         </q-td>
       </template>
 
       <template v-slot:body-cell-edit="props">
         <q-td :props="props">
-          <q-btn 
-            dense 
-            icon="las la-edit" 
+          <q-btn
+            dense
+            icon="las la-edit"
             color="warning"
             @click="onUpdate(props)"
-            ></q-btn>
+          ></q-btn>
         </q-td>
       </template>
 
       <template v-slot:body-cell-delete="props">
         <q-td :props="props">
-          <q-btn 
-            dense 
-            icon="las la-trash-alt" 
+          <q-btn
+            dense
+            icon="las la-trash-alt"
             color="negative"
             @click="onDelete(props)"
-            ></q-btn>
+          ></q-btn>
         </q-td>
       </template>
 
-        
       <template v-slot:top-right>
-        
-
         <q-select
-        
           name="Columnas"
           title="Columnas"
           dropdown-icon="las la-angle-down"
@@ -83,74 +77,96 @@
           style="min-width: 150px"
         />
       </template>
-
-
     </q-table>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useQuasar } from 'quasar'
-import ConfirmDelete from '../components/ConfirmDelete.vue'
-
+import { ref, defineAsyncComponent } from "vue";
+import { useRoute } from "vue-router";
+import { useQuasar } from "quasar";
+import { route } from "quasar/wrappers";
 
 export default {
-  
-  props:{
-    columns:{
+  props: {
+    columns: {
       type: Array,
-      required: true
+      required: true,
     },
-    rows:{
-      type:Array,
-      required: true
+    rows: {
+      type: Array,
+      required: true,
     },
     visibleColumns: {
       type: Array,
-      required: true
+      required: true,
     },
-    title:{
+    title: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
-  setup (props) {
-    
-    const $q = useQuasar()
-    const $route = useRoute()
-    
+  setup(props) {
+    const $q = useQuasar();
+    const $route = useRoute();
 
     return {
-      visibleColumn: ref( props.visibleColumns ),
+      visibleColumn: ref(props.visibleColumns),
       pagination: ref({
-        rowsPerPage: 10
+        rowsPerPage: 10,
       }),
-      onDelete ( props ){
-        console.log( props.key )
+      onDelete(props) {
+        console.log(props.key);
 
         $q.dialog({
-          component: ConfirmDelete,
+          component: defineAsyncComponent(() => import("./ConfirmDelete.vue")),
+        })
+          .onOk(() => {
+            console.log("Elemento eliminado");
+          })
+          .onCancel(() => {
+            console.log("Elemento no eliminado");
+          })
+          .onDismiss(() => {
+            console.log("Llamado cuando Ok o Cancel es llamado");
+          });
+      },
 
-          
-        })
-        .onOk(()=> {
-          console.log("Elemento eliminado")
-        })
-        .onCancel(()=>{
-          console.log("Elemento no eliminado");
-        })
-        .onDismiss(()=>{
-          console.log("Llamado cuando Ok o Cancel es llamado")
-        })
-      }, 
-      
-      onUpdate ( props ){
-        console.log( props.key )
-      }
+      onUpdate(props) {
+        /**
+         * Se debe renderizar dfirentes modales dependiendo la ruta que lo acceda
+         */
+        console.log($route.name);
 
-    }
-  }
-}
+        switch ($route.name) {
+          case "property-dev":
+            $q.dialog({
+              component: defineAsyncComponent(() => import("./ProjectModal.vue")
+              ),
+            })
+              .onOk(() => {
+                console.log("Elemento actualizado");
+              })
+              .onCancel(() => {
+                console.log("Elemento no actualizado");
+              })
+              .onDismiss(() => {
+                console.log("Llamado cuando Ok o Cancel es llamado");
+              })
+
+            break
+          case 'development':
+
+          break
+
+          case 'partners':
+
+           break
+        }
+
+        console.log(props.key);
+      },
+    };
+  },
+};
 </script>

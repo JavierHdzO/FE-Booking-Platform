@@ -22,7 +22,9 @@ const useAuth = () => {
     }
 
     const checkStatus = async () => {
+
         store.commit('auth/reload')
+
     }
 
     const logOut = () => {

@@ -131,7 +131,7 @@ export default defineComponent({
         if( ok ){
           $q.notify({
             message: msg,
-            color: 'purple',
+            color: 'green-14',
             avatar: 'https://cdn.quasar.dev/img/boy-avatar.png'
           })
         }

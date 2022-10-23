@@ -8,7 +8,7 @@
             <!-- <q-card-section >
                 <q-icon ></q-icon>
             </q-card-section> -->
-            <q-card-section horizontal class="items-center">
+            <q-card-section horizontal class="items-center q-mx-md">
                 <q-icon name="las la-exclamation-triangle" size="3rem"  ></q-icon>
 
                 <q-card-section class="text-body1">

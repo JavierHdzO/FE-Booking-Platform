@@ -7,7 +7,7 @@ export const someAction = async (/* { commit } */) => {
 
 export const createUser = async ({ commit }, user) => {
 
-    const { name, last_name, email, password, confirm_pass, access_code, } = user
+    const { name, last_name, email, password, confirm_pass, access_code, rfc, phone } = user
 
     if (password !== confirm_pass)
         return { ok: false, msg: 'password does not match with confirm password' }
@@ -19,7 +19,9 @@ export const createUser = async ({ commit }, user) => {
             last_name,
             email,
             password,
-            access_code
+            access_code,
+            rfc,
+            phone
         })
 
         const { ok } = data
@@ -82,7 +84,7 @@ export const checkAuthentication = async ({ commit }) => {
             return { ok: false, msg }
         }
 
-        
+
 
         return { ok }
 

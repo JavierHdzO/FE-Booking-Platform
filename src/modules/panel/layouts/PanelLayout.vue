@@ -20,7 +20,7 @@
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
-          <p class="q-mx-sm text-h6 max-content">Hola, <span> {{ user }} </span></p>
+          <p class="q-mx-sm text-h6 max-content ">Hola, <span> {{ user }} </span></p>
           <q-btn
             icon="las la-sign-out-alt"
             size="1.5rem"            right
@@ -48,12 +48,15 @@
         </q-header>
 
         <q-footer class="bg-secondary">
+          <div class="bg-white">
+            <div class="text-h6 text-dark q-mx-md">Cuenta</div>
+          </div>
           <div class="row justify-start items-center content-center" >
             <q-avatar>
               <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
             </q-avatar>
             <div class="row max-content items-center">
-                <p class=" text-subtitle1 ">Hola, {{ user }}</p>
+                <p class=" text-subtitle1 text-uppercase">{{ user }}</p>
             </div>
           </div>
         </q-footer>

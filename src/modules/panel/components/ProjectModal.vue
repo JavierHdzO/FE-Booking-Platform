@@ -2,7 +2,7 @@
   <q-dialog ref="dialogRef" @hide="onDialogHide">
     <q-card class="ancho" bordered>
       <q-card-section >
-        <div class="text-h5">Agregar elemento</div>
+        <div class="text-h5 text-weight-medium">Agregar elemento</div>
       </q-card-section>
 
       <div class="q-pa-md">

@@ -2,10 +2,6 @@
   <div class="container">
         <div class="imgContainer">
             <img  :src="background" alt="" class="imageLogin">
-            <!-- <img src="./Public/interior cabana1920x1080.jpg" alt="" class="imageLogin"> -->
-            <!-- <img src="./Public/cabañas redondas.jpg" alt="" class="imageLogin"> -->
-            <!-- <img src="./Public/red small cabins.jpg" alt="" class="imageLogin"> -->
-            <!-- <img src="./Public/cabinsWaterjpg.jpg" alt="" class="imageLogin"> -->
         </div>
         <div class="formContainer">
             <h1 style="font-weight:800; " class="text-h4">REGISTRARSE</h1>
@@ -20,6 +16,16 @@
                     <input  v-model="dataForm.last_name"
                             id="family-name" type="text" class="family-name" name="family-name" required>
                     <label class="text-subtitle1" for="family-name">Apellidos</label>
+                </div>
+                <div class="input-wrapper">
+                    <input  v-model="dataForm.rfc"
+                            id="family-name" type="text" class="family-name" name="family-name" required>
+                    <label class="text-subtitle1" for="family-name">RFC</label>
+                </div>
+                <div class="input-wrapper">
+                    <input  v-model="dataForm.phone"
+                            id="family-name" type="tel" class="family-name" name="family-name" required>
+                    <label class="text-subtitle1" for="family-name">Telefono</label>
                 </div>
                 <div class="input-wrapper">
                     <input  v-model="dataForm.email"
@@ -63,6 +69,8 @@
         const dataForm = ref({
             name: '',
             last_name: '',
+            phone: '',
+            rfc: '',
             email: '',
             password: '',
             confirm_pass: '',
@@ -173,14 +181,6 @@
       align-items: center;
       width: 100%;
   }
-
-  /* input{
-      height: 3em;
-      margin: 0.5rem 0.5rem;
-      width: 100%;
-      border:none;
-      border-bottom: 2px solid rgb(77, 75, 75);
-  } */
 
   h1{
       color: rgb(3, 65, 3);

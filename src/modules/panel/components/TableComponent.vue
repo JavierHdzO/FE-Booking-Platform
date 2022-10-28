@@ -5,6 +5,7 @@
       icon-prev-page="las la-angle-left"
       icon-first-page="las la-angle-double-left"
       icon-last-page="las la-angle-double-right"
+      hide-bottom
       :title="title"
       flat
       :rows="rows"

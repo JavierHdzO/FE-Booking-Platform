@@ -1,3 +1,2 @@
-export const someGetter = (/* */) => {
-
+export function someGetter (/* state */) {
 }

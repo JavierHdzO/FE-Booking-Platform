@@ -48,7 +48,7 @@
         </q-header>
 
         <q-footer class="bg-secondary">
-          <div class="bg-secondary">
+          <!-- <div class="bg-secondary">
             <div class=" text-subtitle1 text-white q-mx-md">Configuración</div>
           </div>
           <div class="row justify-start items-center content-center" >
@@ -58,6 +58,12 @@
             <div class="row max-content items-center">
                 <p class=" text-subtitle1 text-uppercase">{{ user }}</p>
             </div>
+          </div> -->
+          <div class="row">
+            <q-avatar>
+              <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
+            </q-avatar>
+            <ButtonSettings :username="user" />
           </div>
         </q-footer>
       </q-layout>
@@ -110,6 +116,9 @@ export default defineComponent({
     EssentialLink: defineAsyncComponent(() =>
       import("../components/EssencialLink.vue")
     ),
+    ButtonSettings: defineAsyncComponent(()=>
+      import ('../components/ButtonSettings.vue')
+    )
   },
 
   setup() {

@@ -1,7 +1,4 @@
 export default () => ({
-
-    partens: null,
-    propertyDev: null,
-    developments: null
-
+    partners: null,
+    loading: true
 })

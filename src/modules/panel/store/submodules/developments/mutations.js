@@ -1,4 +1,2 @@
-
-export const someMutation = ( /* */) => {
-
+export function someMutation (/* state */) {
 }

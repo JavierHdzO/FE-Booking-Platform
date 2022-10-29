@@ -1,4 +1,2 @@
-
-export const someAction = async (/* context */) => {
-
+export function someAction (/* context */) {
 }

@@ -1,27 +1,58 @@
 <template>
   <q-page>
-    <TableComponent 
+    <template v-if="!isLoading"> 
+      <div class="q-pa-md q-gutter-xs">
+        <div class="q-gutter-md row justify-center" style="font-size: 2em">
+          <q-spinner-grid color="teal" size="10rem" style="margin-top: 20vh;" />
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <TableComponent 
       :columns="columns"
       :rows="rows"
       :visibleColumns="visibleColumns"  
       v-for="val in 1" :key="val" />
+    </template>
+    <template v-if="rows.length === 0 && isLoading" >
+      <div class="row justify-center text-h6">
+        No hay usuarios por mostrar
+      </div>
+      <div class="row justify-center text-h6">
+        <q-icon name="las la-table" color="dark" size="3rem" />
+      </div>
+
+    </template>
   </q-page>
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { computed, defineAsyncComponent, onMounted } from "vue"
+import { useStore } from 'vuex'
+import usePartners from '../composables/usePartners'
+
+
 
 export default {
   name:"PartnerTable",
   components: {
     TableComponent: defineAsyncComponent(() => import("./TableComponent.vue")),
   },
-  setup() {
+  setup () {
+
+    const store = useStore()
+    const { getUsers } = usePartners()
+
+    onMounted(async () => {
+      const {} =  await getUsers()
+    })
+    
     const columns = [
       {
-        name: "id",
-        field: "id",
+        name: "uid",
+        field: "uid",
         label: "ID",
+        align: "center"
       },
       {
         name: "name",
@@ -38,109 +69,21 @@ export default {
       },
       { name: "phone", label: "Telefono", align: "center", field: "phone" },
       { name: "rfc", label: "RFC", align: "center", field: "rfc" },
-      { name: "edit", label: "Editar", align: "center", field: "edit" },
+      { name: "view", label: "Visualizar", align: "center", field: "view" },
       { name: "delete", label: "Eliminar", align: "center", field: "delete" },
-      // { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-      // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: false, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-      // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: false, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
     ]
-
-    const rows = [
-
-      {
-        id:'1',
-        name: 'Frozen Yogurt',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc: 'HELF780415RGF',
     
-      },
-      {
-        id:'2',
-        name: 'Ice cream sandwich',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc: 'HELF780415RGF',
-
-      },
-      {
-        id:'3',
-        name: 'Eclair',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc: 'HELF780415RGF',
-
-      },
-      {
-        id:'4',
-        name:   'Cupcake',
-        email:  'aitech@email.com',
-        phone:  '8333014522',
-        rfc: 'HELF780415RGF',
-
-      },
-      {
-        id:'5',
-        name: 'Gingerbread',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc: 'HELF780415RGF',
     
-      },
-      {
-        id:'6',
-        name:   'Jelly bean',
-        email:  'aitech@email.com',
-        phone:  '8333014522',
-        rfc: 'HELF780415RGF',
-      
-      },
-      {
-        id:'7',
-        name: 'Lollipop',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc: 'HELF780415RGF',
-
-      },
-      {
-        id:'8',
-        name: 'Honeycomb',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc:   'HELF780415RGF',
-    
-      },
-      {
-        id:'9',
-        name: 'Donut',
-        email: 'aitech@email.com',
-        phone: '8333014522',
-        rfc:   'HELF780415RGF',
-      
-      },
-      {
-        id:'10',
-        name:   'KitKat',
-        email:  'aitech@email.com',
-        phone:  '8333014522',
-        rfc:    'HELF780415RGF',
-
-      },
-      {
-        id:'11',
-        name:   'KitKat',
-        email:  'aitech@email.com',
-        phone:  '8333014522',
-        rfc:    'HELF780415RGF',
-      }
-    ]
 
 
     return {
+
       columns,
-      rows,
-      visibleColumns : ['name' ,'email', 'phone', 'rfc', 'view', 'delete', 'edit' ]
+      rows: computed(() => store.getters['partners/users']),
+      visibleColumns : ['name' ,'email', 'phone', 'rfc', 'view', 'delete', 'edit' ],
+      isLoading: computed(()=> store.getters['partners/loading'] ),
+     
+      
     }
   },
 }

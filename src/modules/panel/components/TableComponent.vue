@@ -21,7 +21,7 @@
             dense
             icon="las la-eye"
             color="primary"
-            @click="onUpdate(props)"
+            @click="onView(props)"
           ></q-btn>
         </q-td>
       </template>
@@ -83,11 +83,11 @@
 </template>
 
 <script>
-import { ref, defineAsyncComponent } from "vue";
+import { ref, computed, defineAsyncComponent } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useQuasar } from "quasar";
-import usePartners from '../composables/usePartners'
-
+import usePartners from "../composables/usePartners";
+import { useStore } from 'vuex';
 export default {
   props: {
     columns: {
@@ -108,17 +108,47 @@ export default {
     },
   },
   setup(props) {
-
     const $q = useQuasar();
     const $router = useRouter();
     const $route = useRoute();
     const { deleteUser } = usePartners();
+    const store = useStore()
+
 
     return {
       visibleColumn: ref(props.visibleColumns),
       pagination: ref({
         rowsPerPage: 10,
       }),
+      onView(props) {
+        const { key } = props;
+
+        switch ($route.name) {
+          case "property-dev":
+            break
+          case "development":
+            break
+
+          case "partners":
+            const id = store.getters['partners/idUser'](key)
+            
+            
+            const user = store.getters['partners/user'](id)
+
+            if( !user ) break
+
+            $q.dialog({
+              component: defineAsyncComponent(() =>
+                import("./PartnerViewModal.vue")
+              ),
+              componentProps:{
+                ...user
+              }
+            })
+
+            break
+        }
+      },
       onDelete(props) {
         const { key } = props;
 
@@ -126,38 +156,32 @@ export default {
           component: defineAsyncComponent(() => import("./ConfirmDelete.vue")),
         })
           .onOk(async () => {
-            let ok, msg, type
+            let ok, msg, type;
             switch ($route.name) {
               case "property-dev":
-                break
+                break;
               case "development":
-                break
+                break;
 
               case "partners":
-                const resp = await deleteUser('users', key);
-                ok = resp.ok
-                msg = resp.msg
-                type = resp.type
+                const resp = await deleteUser("users", key);
+                ok = resp.ok;
+                msg = resp.msg;
+                type = resp.type;
 
-
-                break
+                break;
             }
 
-            if(ok){
+            if (ok) {
               $q.notify({
-                  type,
-                  message:msg,
-                  icon: 'las la-exclamation-triangle'
-                  
-              })
-              
-              $router.go()
-              
-            }else{
+                type,
+                message: msg,
+                icon: "las la-exclamation-triangle",
+              });
 
+              $router.go();
+            } else {
             }
-            
-
           })
           .onCancel(() => {
             console.log("Elemento no eliminado");

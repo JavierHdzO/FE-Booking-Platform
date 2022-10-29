@@ -56,7 +56,7 @@ export default {
           $q.notify({
             message: msg,
             color: "green-14",
-            avatar: "https://cdn.quasar.dev/img/boy-avatar.png",
+            avatar: "boy-avatar.png",
           });
         }
         router.push({ name: "signin" });

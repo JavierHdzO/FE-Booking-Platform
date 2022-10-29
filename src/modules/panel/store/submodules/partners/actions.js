@@ -19,7 +19,6 @@ export const getUsers = async ({ commit }) => {
         api.defaults.headers.common['x-token'] = token
         const { data } = await api.get('users/')
         const { ok, users } = data;
-
         commit('setUsers', users)
 
         return { ok: true }

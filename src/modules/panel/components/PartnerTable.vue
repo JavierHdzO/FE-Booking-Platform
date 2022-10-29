@@ -1,8 +1,11 @@
 <template>
   <q-page>
     <template v-if="!isLoading"> 
-    
-      cargando
+      <div class="q-pa-md q-gutter-xs">
+        <div class="q-gutter-md row justify-center" style="font-size: 2em">
+          <q-spinner-grid color="teal" size="10rem" style="margin-top: 20vh;" />
+        </div>
+      </div>
     </template>
     <template v-else>
       <TableComponent 
@@ -10,6 +13,15 @@
       :rows="rows"
       :visibleColumns="visibleColumns"  
       v-for="val in 1" :key="val" />
+    </template>
+    <template v-if="rows.length === 0 && isLoading" >
+      <div class="row justify-center text-h6">
+        No hay usuarios por mostrar
+      </div>
+      <div class="row justify-center text-h6">
+        <q-icon name="las la-table" color="dark" size="3rem" />
+      </div>
+
     </template>
   </q-page>
 </template>
@@ -32,14 +44,15 @@ export default {
     const { getUsers } = usePartners()
 
     onMounted(async () => {
-      await getUsers()
+      const {} =  await getUsers()
     })
     
     const columns = [
       {
-        name: "id",
-        field: "id",
+        name: "uid",
+        field: "uid",
         label: "ID",
+        align: "center"
       },
       {
         name: "name",
@@ -56,11 +69,8 @@ export default {
       },
       { name: "phone", label: "Telefono", align: "center", field: "phone" },
       { name: "rfc", label: "RFC", align: "center", field: "rfc" },
-      { name: "edit", label: "Editar", align: "center", field: "edit" },
+      { name: "view", label: "Visualizar", align: "center", field: "view" },
       { name: "delete", label: "Eliminar", align: "center", field: "delete" },
-      // { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-      // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: false, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-      // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: false, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
     ]
     
     

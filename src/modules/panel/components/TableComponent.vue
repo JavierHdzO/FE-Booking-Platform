@@ -10,7 +10,7 @@
       flat
       :rows="rows"
       :columns="columns"
-      row-key="id"
+      row-key="uid"
       :visible-columns="visibleColumn"
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
@@ -84,9 +84,9 @@
 
 <script>
 import { ref, defineAsyncComponent } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useQuasar } from "quasar";
-import { route } from "quasar/wrappers";
+import usePartners from '../composables/usePartners'
 
 export default {
   props: {
@@ -108,8 +108,11 @@ export default {
     },
   },
   setup(props) {
+
     const $q = useQuasar();
+    const $router = useRouter();
     const $route = useRoute();
+    const { deleteUser } = usePartners();
 
     return {
       visibleColumn: ref(props.visibleColumns),
@@ -117,13 +120,44 @@ export default {
         rowsPerPage: 10,
       }),
       onDelete(props) {
-        console.log(props.key);
+        const { key } = props;
 
         $q.dialog({
           component: defineAsyncComponent(() => import("./ConfirmDelete.vue")),
         })
-          .onOk(() => {
-            console.log("Elemento eliminado");
+          .onOk(async () => {
+            let ok, msg, type
+            switch ($route.name) {
+              case "property-dev":
+                break
+              case "development":
+                break
+
+              case "partners":
+                const resp = await deleteUser('users', key);
+                ok = resp.ok
+                msg = resp.msg
+                type = resp.type
+
+
+                break
+            }
+
+            if(ok){
+              $q.notify({
+                  type,
+                  message:msg,
+                  icon: 'las la-exclamation-triangle'
+                  
+              })
+              
+              $router.go()
+              
+            }else{
+
+            }
+            
+
           })
           .onCancel(() => {
             console.log("Elemento no eliminado");
@@ -142,7 +176,8 @@ export default {
         switch ($route.name) {
           case "property-dev":
             $q.dialog({
-              component: defineAsyncComponent(() => import("./ProjectModal.vue")
+              component: defineAsyncComponent(() =>
+                import("./ProjectModal.vue")
               ),
             })
               .onOk(() => {
@@ -153,28 +188,32 @@ export default {
               })
               .onDismiss(() => {
                 console.log("Llamado cuando Ok o Cancel es llamado");
-              })
+              });
 
-            break
-          case 'development':
+            break;
+          case "development":
             $q.dialog({
-              component: defineAsyncComponent(() => import("./HomeModal.vue")
-              ),
+              component: defineAsyncComponent(() => import("./HomeModal.vue")),
             })
               .onOk(() => {
                 console.log("Elemento actualizado");
+
+                $q.notify({
+                  type: "negative",
+                  icon: "las la-exclamation-triangle",
+                  message: "Actualizado",
+                });
               })
               .onCancel(() => {
                 console.log("Elemento no actualizado");
               })
               .onDismiss(() => {
                 console.log("Llamado cuando Ok o Cancel es llamado");
-              })
-          break
+              });
+            break;
 
-          case 'partners':
-
-           break
+          case "partners":
+            break;
         }
 
         console.log(props.key);

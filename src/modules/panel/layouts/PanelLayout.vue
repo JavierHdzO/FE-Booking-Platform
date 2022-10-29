@@ -48,8 +48,8 @@
         </q-header>
 
         <q-footer class="bg-secondary">
-          <div class="bg-white">
-            <div class="text-h6 text-dark q-mx-md">Cuenta</div>
+          <div class="bg-secondary">
+            <div class=" text-subtitle1 text-white q-mx-md">Configuración</div>
           </div>
           <div class="row justify-start items-center content-center" >
             <q-avatar>

@@ -19,7 +19,7 @@
         No hay usuarios por mostrar
       </div>
       <div class="row justify-center text-h6">
-        <q-icon name="las la-table" color="dark" size="2rem" />
+        <q-icon name="las la-table" color="dark" size="3rem" />
       </div>
 
     </template>

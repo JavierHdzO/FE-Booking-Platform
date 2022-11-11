@@ -43,6 +43,7 @@
 
 <script>
 import { ref, computed } from "vue"
+import { useStore } from "vuex"
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import useAuth from '../composables/useAuth'
@@ -53,6 +54,7 @@ export default {
   setup(){
 
     const router = useRouter()
+    const store = useStore()
     const $q = useQuasar()
     const { logIn } = useAuth()
 
@@ -61,8 +63,10 @@ export default {
       password: ''
     })
     
+    const isAdmin = computed(()=> store.getters['auth/isAdmin'])
 
     return{
+      isAdmin,
       background: computed( setBackground ),
       user,
       onSubmit: async() => {
@@ -81,7 +85,10 @@ export default {
           return
         }
 
-        router.push({name:'dashboard'})
+        if(isAdmin.value)
+          router.push({name:'dashboard'})
+        
+        router.push({name:'development'})
         
       }
     }

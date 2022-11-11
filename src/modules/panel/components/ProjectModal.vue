@@ -1,207 +1,233 @@
 <template>
   <q-dialog ref="dialogRef" @hide="onDialogHide">
-    <q-card class="ancho" bordered>
-      <q-card-section >
-        <div class="text-h5 text-weight-medium">Agregar elemento</div>
-      </q-card-section>
-
-      <div class="q-pa-md">
-        <div class="q-gutter-md row">
-          <!--Select Estados-->
-          <q-card-section>
-            <q-select
-              filled
-              v-model="formData.estado"
-              use-input
-              input-debounce="0"
-              label="Estados"
-              dropdown-icon="las la-angle-down"
-              :options="options_edo"
-              @filter="filterFnEdo"
-              style="width: 300px"
-              color="positive"
-              borderless
-            >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-grey">
-                    No results
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
-          </q-card-section>
-
-          <!--Select Municipios-->
-          <q-card-section>
-            <q-select
-              filled
-              v-model="formData.municipio"
-              use-input
-              input-debounce="0"
-              label="Municipio"
-              dropdown-icon="las la-angle-down"
-              :options="options_mun"
-              @filter="filterFnMunicipios"
-              style="width: 300px"
-              borderless
-              color="positive"
-            >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-grey">
-                    No results
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
-          </q-card-section>
-        </div>
-      </div>
-
-      <q-card-section style="max-width: 710px">
-        <q-input
-          v-model="formData.name"
-          label="Nombre"
-          color="positive"
-          style="margin: 16px"
-          filled
-          borderless
-        >
-          <template v-slot:append>
-            <q-icon name="las la-signature" color="positive" />
-          </template>
-        </q-input>
-      </q-card-section>
-
-      <q-card-section style="max-width: 710px">
-        <q-input
-          v-model="formData.address"
-          label="Direccion"
-          color="positive"
-          style="margin: 16px"
-          filled
-          borderless
-        >
-          <template v-slot:append>
-            <q-icon name="las la-map-marker" color="positive" />
-          </template>
-        </q-input>
-      </q-card-section>
-
-      <q-card-section style="max-width: 710px">
-        <q-input
-          v-model="formData.video"
-          label="Link de video"
-          color="positive"
-          style="margin: 16px"
-          filled
-          borderless
-        >
-          <template v-slot:append>
-            <q-icon name="lab la-youtube" color="positive" />
-          </template>
-        </q-input>
-      </q-card-section>
-
-      <div class="q-pa-md">
-        <div class="q-gutter-md row justify-center ">
-          <q-file
-            filled
-            bottom-slots
-            v-model="formData.img_uno"
-            label="Imagen 1"
-            counter
-            max-files="1"
-            style="margin: 32px"
+    <q-card
+      class="q-dialog-plugin q-pa-md bg-blue-grey-1 row full-height ancho"
+      
+    >
+      <q-layout
+        view="lHh Lpr lFf"
+        container
+        class="shadow-2 rounded-borders full height ancho"
+      >
+        <q-header>
+          <div
+            class="bg-grey-3 text-dark text-h5 text-center text-weight-medium"
           >
-            <template v-slot:before>
-              <q-icon name="las la-photo-video" />
-            </template>
+            Agregar elemento
+          </div>
+        </q-header>
 
-            <template v-slot:hint> Field hint </template>
+        <q-page-container>
+          <q-page padding style="padding-top: 10px">
 
-            <!-- <template v-slot:append>
+            <div class="q-pa-md">
+              <div class="q-gutter-md row">
+                <!--Select Estados-->
+                <q-card-section>
+                  <q-select
+                    filled
+                    v-model="formData.estado"
+                    use-input
+                    input-debounce="0"
+                    label="Estados"
+                    dropdown-icon="las la-angle-down"
+                    :options="options_edo"
+                    @filter="filterFnEdo"
+                    style="width: 300px"
+                    color="positive"
+                    borderless
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </q-card-section>
+
+                <!--Select Municipios-->
+                <q-card-section>
+                  <q-select
+                    filled
+                    v-model="formData.municipio"
+                    use-input
+                    input-debounce="0"
+                    label="Municipio"
+                    dropdown-icon="las la-angle-down"
+                    :options="options_mun"
+                    @filter="filterFnMunicipios"
+                    style="width: 300px"
+                    borderless
+                    color="positive"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </q-card-section>
+              </div>
+            </div>
+
+            <q-card-section style="max-width: 710px">
+              <q-input
+                v-model="formData.name"
+                label="Nombre"
+                color="positive"
+                style="margin: 16px"
+                filled
+                borderless
+              >
+                <template v-slot:append>
+                  <q-icon name="las la-signature" color="positive" />
+                </template>
+              </q-input>
+            </q-card-section>
+
+            <q-card-section style="max-width: 710px">
+              <q-input
+                v-model="formData.address"
+                label="Direccion"
+                color="positive"
+                style="margin: 16px"
+                filled
+                borderless
+              >
+                <template v-slot:append>
+                  <q-icon name="las la-map-marker" color="positive" />
+                </template>
+              </q-input>
+            </q-card-section>
+
+            <q-card-section style="max-width: 710px">
+              <q-input
+                v-model="formData.video"
+                label="Link de video"
+                color="positive"
+                style="margin: 16px"
+                filled
+                borderless
+              >
+                <template v-slot:append>
+                  <q-icon name="lab la-youtube" color="positive" />
+                </template>
+              </q-input>
+            </q-card-section>
+
+            <div class="q-pa-md">
+              <div class="q-gutter-md row justify-center">
+                <q-file
+                  filled
+                  bottom-slots
+                  v-model="formData.img_uno"
+                  label="Imagen 1"
+                  counter
+                  max-files="1"
+                  style="margin: 32px"
+                >
+                  <template v-slot:before>
+                    <q-icon name="las la-photo-video" />
+                  </template>
+
+                  <template v-slot:hint> Field hint </template>
+
+                  <!-- <template v-slot:append>
               <q-btn round dense flat icon="add" @click.stop.prevent />
             </template> -->
-          </q-file>
+                </q-file>
 
-          <q-file
-            filled
-            bottom-slots
-            v-model="formData.img_dos"
-            label="Imagen 2"
-            counter
-            max-files="1"
-            style="margin: 32px"
-          >
-            <template v-slot:before>
-              <q-icon name="las la-photo-video" />
-            </template>
+                <q-file
+                  filled
+                  bottom-slots
+                  v-model="formData.img_dos"
+                  label="Imagen 2"
+                  counter
+                  max-files="1"
+                  style="margin: 32px"
+                >
+                  <template v-slot:before>
+                    <q-icon name="las la-photo-video" />
+                  </template>
 
-            <template v-slot:hint> Field hint </template>
+                  <template v-slot:hint> Field hint </template>
 
-            <!-- <template v-slot:append>
+                  <!-- <template v-slot:append>
               <q-btn round dense flat icon="add" @click.stop.prevent />
             </template> -->
-          </q-file>
-        </div>
-      </div>
+                </q-file>
+              </div>
+            </div>
 
-    <div class="q-pa-md">
-        <div class="q-gutter-md row justify-center">
-          <q-file
-            filled
-            bottom-slots
-            v-model="formData.img_tres"
-            label="Imagen 3"
-            counter
-            max-files="1"
-            style="margin: 32px"
-          >
-            <template v-slot:before>
-              <q-icon name="las la-photo-video" />
-            </template>
+            <div class="q-pa-md">
+              <div class="q-gutter-md row justify-center">
+                <q-file
+                  filled
+                  bottom-slots
+                  v-model="formData.img_tres"
+                  label="Imagen 3"
+                  counter
+                  max-files="1"
+                  style="margin: 32px"
+                >
+                  <template v-slot:before>
+                    <q-icon name="las la-photo-video" />
+                  </template>
 
-            <template v-slot:hint> Field hint </template>
+                  <template v-slot:hint> Field hint </template>
 
-            <!-- <template v-slot:append>
-              <q-btn round dense flat icon="add" @click.stop.prevent />
-            </template> -->
-          </q-file>
+             
+                </q-file>
 
-          <q-file
-            filled
-            bottom-slots
-            v-model="formData.img_cuatro"
-            label="Imagen 4"
-            counter
-            max-files="1"
-            style="margin: 32px"
-          >
-            <template v-slot:before>
-              <q-icon name="las la-photo-video" />
-            </template>
+                <q-file
+                  filled
+                  bottom-slots
+                  v-model="formData.img_cuatro"
+                  label="Imagen 4"
+                  counter
+                  max-files="1"
+                  style="margin: 32px"
+                >
+                  <template v-slot:before>
+                    <q-icon name="las la-photo-video" />
+                  </template>
 
-            <template v-slot:hint> Field hint </template>
+                  <template v-slot:hint> Field hint </template>
 
-            <!-- <template v-slot:append>
-              <q-btn round dense flat icon="add" @click.stop.prevent />
-            </template> -->
-          </q-file>
-        </div>
-      </div>
+                </q-file>
+              </div>
+            </div>
+
+          </q-page>
+        </q-page-container>
+        <q-footer>
+          <q-card-actions align="right" class="bg-grey-3">
+            <q-btn
+              color="negative"
+              outline
+              no-caps
+              icon="las la-times"
+              label="Cancel"
+              @click="onCancelDialog"
+            />
+            <q-btn
+              color="blue-5"
+              outline
+              no-caps
+              icon="las la-check"
+              label="Confimar"
+              @click="onOKDialog"
+            />
+          </q-card-actions>
+        </q-footer>
+      </q-layout>
 
 
-
-
-      <q-card-actions align="right">
-        <q-btn color="negative" outline no-caps icon="las la-times"   label="Cancelar" @click="onCancelDialog"></q-btn>
-        <q-btn color="blue-5" outline no-caps icon="las la-check" label="Confirmar" @click="onOKDialog"></q-btn>
-      </q-card-actions>
     </q-card>
-
-    
   </q-dialog>
 </template>
 
@@ -231,7 +257,7 @@ export default {
       img_uno: null,
       img_dos: null,
       img_tres: null,
-      img_cuatro: null
+      img_cuatro: null,
     });
     /** Estados select */
     const options_edo = ref(estados);
@@ -242,9 +268,8 @@ export default {
     let municipios_tmp = [];
 
     watch(formData.value, () => {
-        
-      if (formData.value.estado === "") options_mun.value = []
-      options_mun.value = municipios[formData.value.estado]
+      if (formData.value.estado === "") options_mun.value = [];
+      options_mun.value = municipios[formData.value.estado];
       municipios_tmp = options_mun.value;
     });
 
@@ -309,5 +334,10 @@ export default {
 .ancho {
   width: 750px;
   max-width: 800px;
+}
+
+.p-c {
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 </style>

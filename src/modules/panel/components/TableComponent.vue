@@ -5,7 +5,6 @@
       icon-prev-page="las la-angle-left"
       icon-first-page="las la-angle-double-left"
       icon-last-page="las la-angle-double-right"
-      hide-bottom
       :title="title"
       flat
       :rows="rows"
@@ -14,6 +13,7 @@
       :visible-columns="visibleColumn"
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
+      :filter="filter"
     >
       <template v-slot:body-cell-view="props">
         <q-td :props="props">
@@ -59,7 +59,7 @@
         </q-td>
       </template>
 
-      <template v-slot:top-right>
+      <template v-slot:top-left>
         <q-select
           name="Columnas"
           title="Columnas"
@@ -77,6 +77,17 @@
           options-cover
           style="min-width: 150px"
         />
+
+        
+
+      </template>
+
+      <template v-slot:top-right>
+        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <template v-slot:append>
+            <q-icon name="las la-search" />
+          </template>
+        </q-input>
       </template>
     </q-table>
   </div>
@@ -116,6 +127,7 @@ export default {
 
 
     return {
+      filter: ref(''),
       visibleColumn: ref(props.visibleColumns),
       pagination: ref({
         rowsPerPage: 10,

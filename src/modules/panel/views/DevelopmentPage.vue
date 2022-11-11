@@ -19,7 +19,8 @@
 
         </q-toolbar>
 
-         <q-btn 
+         <q-btn
+              @click="onShowModal" 
               class="q-mx-lg q-my-md"
               color="positive" 
               icon="las la-plus-circle" 
@@ -49,12 +50,37 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from "vue"
+import { useQuasar } from "quasar"
 
 export default {
   components: {
     DevelopmenTableLIst: defineAsyncComponent(() => import("../components/DevelopmenTableLIst.vue")),
   },
+
+  setup(){
+    const $q = useQuasar()
+
+    return {
+      onShowModal:()=>{
+        $q.dialog({
+              component: defineAsyncComponent(() =>
+                import("../components/HomeModal.vue")
+              ),
+            })
+              .onOk(() => {
+                console.log("Elemento actualizado");
+              })
+              .onCancel(() => {
+                console.log("Elemento no actualizado");
+              })
+              .onDismiss(() => {
+                console.log("Llamado cuando Ok o Cancel es llamado");
+              });
+      }
+    }
+
+  }
 }
 </script>
 

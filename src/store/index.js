@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 
 import auth from '../modules/auth/store/'
 import partners from 'src/modules/panel/store/submodules/partners'
+import projects from 'src/modules/panel/store/submodules/projects'
 
 // import example from './module-example'
 
@@ -19,7 +20,8 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       auth,
-      partners
+      partners,
+      projects
     },
 
     // enable strict mode (adds overhead!)

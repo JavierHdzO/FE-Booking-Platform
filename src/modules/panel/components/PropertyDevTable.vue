@@ -1,14 +1,30 @@
 <template>
-
-    <TableComponent
+  
+    
+    <q-page>
+    <template v-if="!isLoading"> 
+      <div class="q-pa-md q-gutter-xs">
+        <div class="q-gutter-md row justify-center" style="font-size: 2em">
+          <q-spinner-grid color="teal" size="10rem" style="margin-top: 20vh;" />
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <TableComponent
         :columns="columns"
         :rows="rows"
         :visibleColumns="visibleColumns"
     />
+    </template>
+    </q-page>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue'
+import { useStore } from 'vuex'
+
+
+import useProjects from '../composables/useProjects'
 
 export default {
   
@@ -17,6 +33,15 @@ export default {
     TableComponent: defineAsyncComponent( () => import ('../components/TableComponent.vue') )
   },
   setup() {
+    const { getProjects } = useProjects()
+    const store = useStore()
+
+    onBeforeMount( async() => {
+        await getProjects()
+    })
+
+    const projects = computed(()=> store.getters['projects/getProjects'])
+
     const columns = [
       {
         name: "id",
@@ -36,9 +61,9 @@ export default {
         align: "center",
       },
       {
-        name: "town",
+        name: "city",
         label: "Municipio",
-        field: "town",
+        field: "city",
         align: "center",
       },
       {
@@ -79,12 +104,13 @@ export default {
 
     ]
 
-    const rows = [
+    // const rows = projects.value
+    /*[
         {
             id:"1",
             name:"Cabañas amores",
             state:"Hidalgo",
-            town: "Real del monte",
+            city: "Real del monte",
             address: "Av. Lorem Ipsum",
             category: "Cabañas",
             video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
@@ -93,7 +119,7 @@ export default {
             id:"2",
             name:"Cabañas olimpiad",
             state:"Hidalgo",
-            town: "Real del monte",
+            city: "Real del monte",
             address: "Av. Lorem Ipsum",
             category: "Cabañas",
             video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
@@ -102,108 +128,22 @@ export default {
             id:"3",
             name:"Cabañas amores",
             state:"Hidalgo",
-            town: "Real del monte",
+            city: "Real del monte",
             address: "Av. Lorem Ipsum",
             category: "Cabañas",
             video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
         },
-        {
-            id:"4",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"5",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"6",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"7",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"8",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"9",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"10",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"11",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"12",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"13",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            town: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-    ]
+        
+    ]*/
 
 
     return {
         columns,
-        rows,
-        visibleColumns : ['name' ,'state', 'town', 'address', 'category','video','view', 'delete', 'edit' ]
+        rows: computed(()=> store.getters['projects/getProjects']),
+        visibleColumns : ['name' ,'state', 'city', 'address', 'category','video','view', 'delete', 'edit' ],
+        isLoading: computed(()=> store.getters['projects/isLoading'] ),
+        projects
+        
     }
   },
 }

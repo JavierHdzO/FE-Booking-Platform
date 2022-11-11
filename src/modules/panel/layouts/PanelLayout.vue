@@ -20,7 +20,7 @@
         </q-toolbar-title>
 
         <div class="row justify-start items-center hiden">
-          <p class="q-mx-sm text-h6 max-content ">Hola, <span> {{ user }} </span></p>
+          <p class="q-mx-sm text-h6 max-content ">Hola, <span> {{ username }} </span></p>
           <q-btn
             icon="las la-sign-out-alt"
             size="1.5rem"            right
@@ -39,31 +39,31 @@
           <q-list>
             <q-item-label header> Menú </q-item-label>
 
-            <EssentialLink
-              v-for="link in essentialLinks"
-              :key="link.title"
-              v-bind="link"
-            />
+            <template v-if="isAdmin">
+              <EssentialLink
+                v-for="link in linksList"
+                :key="link.title"
+                v-bind="link"
+              />
+            </template>
+            <template v-else>
+              <EssentialLink
+                v-for="link in linksListModerator"
+                :key="link.title"
+                v-bind="link"
+              />
+
+            </template>
           </q-list>
         </q-header>
 
         <q-footer class="bg-secondary">
-          <!-- <div class="bg-secondary">
-            <div class=" text-subtitle1 text-white q-mx-md">Configuración</div>
-          </div>
-          <div class="row justify-start items-center content-center" >
-            <q-avatar>
-              <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
-            </q-avatar>
-            <div class="row max-content items-center">
-                <p class=" text-subtitle1 text-uppercase">{{ user }}</p>
-            </div>
-          </div> -->
+          
           <div class="row">
             <q-avatar>
               <img src="AitechGlampingLogo.png" alt="Aitech Glamping Logo" />
             </q-avatar>
-            <ButtonSettings :username="user" />
+            <ButtonSettings :username="username" />
           </div>
         </q-footer>
       </q-layout>
@@ -108,6 +108,21 @@ const linksList = [
     link: "partners",
   },
 ];
+const linksListModerator = [
+
+  {
+    title: "Desarrollo",
+    caption: "Proyectos pertenecientes al desarrollo",
+    icon: "las la-layer-group",
+    link: "development",
+  },
+  {
+    title: "Proyectos",
+    caption: "Vista de proyectos activos",
+    icon: "las la-building",
+    link: "property-dev",
+  }
+];
 
 export default defineComponent({
   name: "PartnerLayout",
@@ -131,7 +146,9 @@ export default defineComponent({
     checkStatus()
 
     return {
-      essentialLinks: linksList,
+      isAdmin: computed(()=> store.getters['auth/isAdmin']),
+      linksList,
+      linksListModerator,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -150,7 +167,7 @@ export default defineComponent({
         router.push({name:'signin'})
 
       },
-      user: computed(()=> store.getters['auth/username'])
+      username: computed(()=> store.getters['auth/username'])
     }
   },
 })

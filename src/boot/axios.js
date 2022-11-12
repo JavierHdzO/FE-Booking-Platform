@@ -10,9 +10,9 @@ import axios from 'axios'
 
 
 // const api = axios.create({ baseURL: 'https://be-booking-platform-production.up.railway.app/api' })
-const api = axios.create({ baseURL: 'http://localhost:3000/api' })
+// const api = axios.create({ baseURL: 'http://localhost:3000/api' })
 
-// const api = axios.create({ baseURL: 'https://be-booking-platform-a35w0mdfk-javierhdzo.vercel.app/api' })
+const api = axios.create({ baseURL: 'https://be-booking-platform-a35w0mdfk-javierhdzo.vercel.app/api' })
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

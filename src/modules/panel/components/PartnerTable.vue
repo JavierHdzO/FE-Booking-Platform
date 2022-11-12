@@ -11,7 +11,8 @@
       <TableComponent 
       :columns="columns"
       :rows="rows"
-      :visibleColumns="visibleColumns"  
+      :visibleColumns="visibleColumns"
+      idKey="uid"  
       v-for="val in 1" :key="val" />
     </template>
     <template v-if="rows.length === 0 && isLoading" >

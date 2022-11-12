@@ -28,10 +28,43 @@ export const getProjects = async( { commit }) => {
             ok
         }
     } catch (error) {
+        console.log(error);
         return {
             ok:false,
-            msg: 'Error to load projects'
+            msg: error.responses.data.msg || error.responses.data.errors[0].msg
         }
     }
 
 }
+
+export const  createProject = async( { commit }, formData ) => {
+
+    const token = localStorage.getItem('tokenID');
+
+    if(!token) return {
+        ok:false,
+        msg:'Token missing or incorrect'
+    }
+
+    try {
+
+        api.defaults.headers.common['x-toke'] = token
+        const { data } = await api.post('projects/', formData, {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        } )
+
+        const  {ok, msg} =  data
+
+        return {ok, msg}
+        
+    } catch (error) {
+        return {
+            ok: false,
+            msg: error.responses.data.msg || error.responses.data.errors[0].msg
+        }
+    }
+}
+
+

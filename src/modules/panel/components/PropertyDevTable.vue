@@ -14,6 +14,7 @@
         :columns="columns"
         :rows="rows"
         :visibleColumns="visibleColumns"
+        idKey="id"
     />
     </template>
     </q-page>
@@ -39,8 +40,6 @@ export default {
     onBeforeMount( async() => {
         await getProjects()
     })
-
-    const projects = computed(()=> store.getters['projects/getProjects'])
 
     const columns = [
       {
@@ -78,9 +77,9 @@ export default {
         field: "category",
       },
       {
-        name: "video",
+        name: "url",
         label: "Video (URL)",
-        field: "video",
+        field: "url",
         align: "center",
         style: 'width: 120px;',
         headerStyle: 'width: 120px;'
@@ -104,45 +103,11 @@ export default {
 
     ]
 
-    // const rows = projects.value
-    /*[
-        {
-            id:"1",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            city: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"2",
-            name:"Cabañas olimpiad",
-            state:"Hidalgo",
-            city: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        {
-            id:"3",
-            name:"Cabañas amores",
-            state:"Hidalgo",
-            city: "Real del monte",
-            address: "Av. Lorem Ipsum",
-            category: "Cabañas",
-            video: "https://www.youtube.com/watch?v=r2LKrHidoFw&ab_channel=Caba%C3%B1as"
-        },
-        
-    ]*/
-
-
     return {
         columns,
         rows: computed(()=> store.getters['projects/getProjects']),
-        visibleColumns : ['name' ,'state', 'city', 'address', 'category','video','view', 'delete', 'edit' ],
+        visibleColumns : ['name' ,'state', 'city', 'address', 'category','url','view', 'delete', 'edit' ],
         isLoading: computed(()=> store.getters['projects/isLoading'] ),
-        projects
         
     }
   },

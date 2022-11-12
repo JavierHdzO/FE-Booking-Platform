@@ -9,9 +9,9 @@
       flat
       :rows="rows"
       :columns="columns"
-      row-key="uid"
+      :row-key="idKey"
       :visible-columns="visibleColumn"
-      v-model:pagination="pagination"
+      :v-model:pagination="pagination"
       :rows-per-page-options="[0]"
       :filter="filter"
     >
@@ -117,6 +117,10 @@ export default {
       type: String,
       default: "",
     },
+    idKey:{
+      type: String,
+      required: true
+    }
   },
   setup(props) {
     const $q = useQuasar();
@@ -137,6 +141,26 @@ export default {
 
         switch ($route.name) {
           case "property-dev":
+
+            console.log(key);
+            const clave = store.getters['projects/projectID'](key)
+            
+            
+            const project = store.getters['projects/project'](clave)
+
+            if( !project ) break
+  
+            console.log( project )
+            $q.dialog({
+              component: defineAsyncComponent(() =>
+                import("./ProjectModal.vue")
+              ),
+              componentProps:{
+                disabled: true,
+                ...project
+              }
+            })
+
             break
           case "development":
             break

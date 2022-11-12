@@ -1,5 +1,5 @@
 <template>
-  
+  <q-page>
 
     <TableComponent
         v-for="(title, index) in titles" :key="index"
@@ -7,10 +7,10 @@
         :columns="columns"
         :rows="rows"
         :visibleColumns="visibleColumns"
+        idKey="id"
 
     />
-
-
+  </q-page>
 </template>
 
 <script>
